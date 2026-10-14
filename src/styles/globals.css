@@ -1,0 +1,100 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@fontsource-variable/inter';
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --font-mono: 'Cascadia Mono', Consolas, 'SF Mono', ui-monospace, Menlo, monospace;
+
+  /* Brand — primary #1263EB */
+  --color-brand-25: #f5f9ff;
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dbe7fe;
+  --color-brand-200: #bdd3fd;
+  --color-brand-300: #90b5fb;
+  --color-brand-400: #5a8ef6;
+  --color-brand-500: #2f73f0;
+  --color-brand-600: #1263eb;
+  --color-brand-700: #0f50c2;
+  --color-brand-800: #11439c;
+  --color-brand-900: #133a7c;
+
+  /* Neutrals — navy-tinted gray, headings at #101828 */
+  --color-gray-25: #fcfcfd;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f2f4f7;
+  --color-gray-200: #eaecf0;
+  --color-gray-300: #d0d5dd;
+  --color-gray-400: #98a2b3;
+  --color-gray-500: #667085;
+  --color-gray-600: #475467;
+  --color-gray-700: #344054;
+  --color-gray-800: #1d2939;
+  --color-gray-900: #101828;
+
+  --shadow-xs: 0 1px 2px 0 rgb(16 24 40 / 0.05);
+  --shadow-card: 0 1px 3px 0 rgb(16 24 40 / 0.06), 0 1px 2px -1px rgb(16 24 40 / 0.06);
+  --shadow-pop: 0 12px 24px -6px rgb(16 24 40 / 0.12), 0 4px 8px -4px rgb(16 24 40 / 0.06);
+
+  --animate-scan-pop: scan-pop 0.45s ease-out;
+  @keyframes scan-pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.08); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-gray-200);
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background-color: var(--color-gray-50);
+    color: var(--color-gray-700);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  /* Let grid/flex children shrink (zero-specificity, so min-w-* utilities still win) so wide tables scroll inside their card instead of stretching the page. */
+  main,
+  main :where(*) {
+    min-width: 0;
+  }
+  h1, h2, h3, h4 {
+    color: var(--color-gray-900);
+  }
+  button:not(:disabled), [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Printing: only content rendered through <PrintPortal> (.print-only) is printed. */
+.print-only {
+  display: none;
+}
+@media print {
+  @page {
+    margin: 12mm;
+  }
+  body {
+    background: #fff;
+  }
+  body > *:not(.print-only) {
+    display: none !important;
+  }
+  .print-only {
+    display: block;
+  }
+}
